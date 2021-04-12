@@ -1,4 +1,4 @@
-package com.diploma.pricemonitoring.repository;
+package com.diploma.pricemonitoring.repository.notebook;
 
 import com.diploma.pricemonitoring.model.notebook.NotebookModel;
 import org.springframework.data.jpa.repository.JpaRepository;

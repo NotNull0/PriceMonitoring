@@ -1,10 +1,10 @@
-package com.diploma.pricemonitoring.service;
+package com.diploma.pricemonitoring.service.notebook;
 
 import com.diploma.pricemonitoring.model.notebook.NotebookPriceModel;
 import com.diploma.pricemonitoring.model.notebook.NotebookShopPriceModel;
-import com.diploma.pricemonitoring.repository.NotebookPriceRepository;
-import com.diploma.pricemonitoring.repository.NotebookShopPriceRepository;
-import com.diploma.pricemonitoring.service.interf.NotebookPriceService;
+import com.diploma.pricemonitoring.repository.notebook.NotebookPriceRepository;
+import com.diploma.pricemonitoring.repository.notebook.NotebookShopPriceRepository;
+import com.diploma.pricemonitoring.service.notebook.interf.NotebookPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,16 @@ public class NotebookPriceServiceImpl implements NotebookPriceService {
             notebookPriceModel = presentShop.get();
             boolean isNotNeedUpdate = IsPriceWasUpdated(model, presentShop);
             if (!isNotNeedUpdate) {
-                saveShopPrice(model, notebookPriceModel);
+                int countWritesFromShop = notebookShopPriceRepository.getCountWritesFromShop(model.getPrice(), notebookPriceModel.getNotebookModel().getId(), notebookPriceModel.getShop().name()).size();
+                System.out.println("SIZE + " + countWritesFromShop);
+                System.out.println(
+                        "MODEL PRICE --> " + model.getPrice() + "\n" +
+                                "TABLETOP ID --> " + notebookPriceModel.getNotebookModel().getId() + "\n" +
+                                "SHOP --> " + notebookPriceModel.getShop().name() + "\n"
+                );
+                if (countWritesFromShop < 1) {
+                    saveShopPrice(model, notebookPriceModel);
+                }
             }
             notebookPriceRepository.save(notebookPriceModel.setPrice(model.getPrice()));
         }

@@ -1,12 +1,12 @@
-package com.diploma.pricemonitoring.service;
+package com.diploma.pricemonitoring.service.notebook;
 
 import com.diploma.pricemonitoring.model.notebook.NotebookModel;
 import com.diploma.pricemonitoring.model.notebook.NotebookPriceModel;
 import com.diploma.pricemonitoring.parse.dto.notebooks.NotebookDto;
-import com.diploma.pricemonitoring.parse.dto.notebooks.NotebookPriceDto;
-import com.diploma.pricemonitoring.repository.NotebookRepository;
-import com.diploma.pricemonitoring.service.interf.NotebookPriceService;
-import com.diploma.pricemonitoring.service.interf.NotebookService;
+import com.diploma.pricemonitoring.parse.dto.notebooks.PriceDto;
+import com.diploma.pricemonitoring.repository.notebook.NotebookRepository;
+import com.diploma.pricemonitoring.service.notebook.interf.NotebookPriceService;
+import com.diploma.pricemonitoring.service.notebook.interf.NotebookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,11 +57,11 @@ public class NotebookServiceImpl implements NotebookService {
         });
     }
 
-    private List<NotebookPriceModel> parseListNotebookPriceDtoToModel(List<NotebookPriceDto> notebookPriceDtos, NotebookModel notebookModel) {
+    private List<NotebookPriceModel> parseListNotebookPriceDtoToModel(List<PriceDto> notebookPriceDtos, NotebookModel notebookModel) {
         return notebookPriceDtos.stream().map(priceNotebook -> parseNotebookPriceDtoToModel(priceNotebook, notebookModel)).collect(Collectors.toList());
     }
 
-    private NotebookPriceModel parseNotebookPriceDtoToModel(NotebookPriceDto notebookPriceDto, NotebookModel notebookModel) {
+    private NotebookPriceModel parseNotebookPriceDtoToModel(PriceDto notebookPriceDto, NotebookModel notebookModel) {
         return new NotebookPriceModel(notebookPriceDto).setNotebookModel(notebookModel);
     }
 }

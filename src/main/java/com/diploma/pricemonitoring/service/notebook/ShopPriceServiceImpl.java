@@ -1,8 +1,8 @@
-package com.diploma.pricemonitoring.service;
+package com.diploma.pricemonitoring.service.notebook;
 
 import com.diploma.pricemonitoring.model.notebook.NotebookShopPriceModel;
-import com.diploma.pricemonitoring.repository.NotebookShopPriceRepository;
-import com.diploma.pricemonitoring.service.interf.ShopPriceService;
+import com.diploma.pricemonitoring.repository.notebook.NotebookShopPriceRepository;
+import com.diploma.pricemonitoring.service.notebook.interf.ShopPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

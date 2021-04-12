@@ -1,7 +1,7 @@
 package com.diploma.pricemonitoring.model.notebook;
 
 import com.diploma.pricemonitoring.model.Shop;
-import com.diploma.pricemonitoring.parse.dto.notebooks.NotebookPriceDto;
+import com.diploma.pricemonitoring.parse.dto.notebooks.PriceDto;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,14 +23,13 @@ public class NotebookPriceModel {
     @ManyToOne
     private NotebookModel notebookModel;
 
-
     @OneToMany(mappedBy = "modelPrice")
     private List<NotebookShopPriceModel> prices;
 
     public NotebookPriceModel() {
     }
 
-    public NotebookPriceModel(NotebookPriceDto notebookPriceDto) {
+    public NotebookPriceModel(PriceDto notebookPriceDto) {
         this.setShop(notebookPriceDto.getShop());
         this.setPrice(notebookPriceDto.getPrice());
     }

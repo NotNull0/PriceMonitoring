@@ -1,4 +1,4 @@
-package com.diploma.pricemonitoring.service.interf;
+package com.diploma.pricemonitoring.service.notebook.interf;
 
 import com.diploma.pricemonitoring.model.notebook.NotebookPriceModel;
 

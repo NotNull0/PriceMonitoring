@@ -23,7 +23,7 @@ public class PriceMonitoringApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     public void execute() throws IOException {
-        ekatalogProductData.getProducts(ProductType.NOTEBOOK);
+        ekatalogProductData.getProducts(ProductType.TABLETOP);
     }
 
 }

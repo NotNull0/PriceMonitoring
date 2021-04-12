@@ -31,14 +31,21 @@ public class NotebookModel {
     private List<NotebookPriceModel> notebookPriceModels;
 
     public NotebookModel(NotebookDto notebookDto) {
-        this.setDisplay(notebookDto.getDisplay());
-        this.setName(notebookDto.getName());
-        this.setOZU(notebookDto.getOZU());
-        this.setProcessor(notebookDto.getProcessor());
-        this.setStorage(notebookDto.getStorage());
-        this.setWeight(notebookDto.getWeight());
-        this.setDescription(notebookDto.getDescription());
-        this.setImageURL(notebookDto.getImageURL());
+        this.setDisplay(isEmptySet(notebookDto.getDisplay()));
+        this.setName(isEmptySet(notebookDto.getName()));
+        this.setOZU(isEmptySet(notebookDto.getOZU()));
+        this.setProcessor(isEmptySet(notebookDto.getProcessor()));
+        this.setStorage(isEmptySet(notebookDto.getStorage()));
+        this.setWeight(isEmptySet(notebookDto.getWeight()));
+        this.setDescription(isEmptySet(notebookDto.getDescription()));
+        this.setImageURL(isEmptySet(notebookDto.getImageURL()));
+    }
+
+    private String isEmptySet(String value) {
+        if (value == null ||value.isEmpty()) {
+            return "Інформація відсутня";
+        }
+        return value;
     }
 
     public String getImageURL() {

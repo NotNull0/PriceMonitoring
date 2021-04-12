@@ -15,7 +15,7 @@ public class NotebookDto {
     private String OZU;
     private String Storage;
     private String Weight;
-    private List<NotebookPriceDto> notebookPriceDtos = new LinkedList<>();
+    private List<PriceDto> priceDtos = new LinkedList<>();
     private String description;
     private String imageURL;
 
@@ -49,12 +49,12 @@ public class NotebookDto {
         return this;
     }
 
-    public List<NotebookPriceDto> getPriceNotebooks() {
-        return notebookPriceDtos;
+    public List<PriceDto> getPriceNotebooks() {
+        return priceDtos;
     }
 
-    public NotebookDto setPriceNotebooks(List<NotebookPriceDto> notebookPriceDtos) {
-        this.notebookPriceDtos = notebookPriceDtos;
+    public NotebookDto setPriceNotebooks(List<PriceDto> priceDtos) {
+        this.priceDtos = priceDtos;
         return this;
     }
 
@@ -121,7 +121,8 @@ public class NotebookDto {
                 "[OZU]='" + OZU + '\'' + "\n"+
                 "[Storage]='" + Storage + '\'' + "\n"+
                 "[Weight]='" + Weight + '\'' + "\n"+
-                "[priceNotebooks]=" + notebookPriceDtos +
+                "[priceNotebooks]=" + priceDtos +
+                "[img]=" + imageURL +
                 '}' +"\n" + "=====================================";
     }
 }

@@ -30,6 +30,15 @@ public enum Shop {
     COM_TRADING("Comtrading.ua"), E_DAM("Edam.com.ua"), KTC("Ktc.ua"), SMARTTEL("Smarttel.u"), OPT_SKLAD("Optsklad.com"),
     MAIN_FRAME("Mainframe.com.ua"), YOU_SEE("Yousee.com.ua"), FOXEL("Foxel.com.ua"), EASY_MAC("Easymac.com.ua"),
     TECHNOLOFT("Technoloft.com.ua"), NOFLET("Nofelet.ua"), SMARTTER("Smarttel.ua"), FISHKI("Fishki.ua"),
+    MY_CLOUD_STORE("My Cloud Store"),LUXURY("Luxury"),CHI_CHI_MARKET("ChiChiMarket"),SOTA_UKR("Сота.укр"),
+    TITAN_UA("Titan.ua"),KIBERNETIKI("Kibernetiki.com.ua"),FOZI("Fozi.com.ua"),MMT("MMT"),PROVIDER("Provider"),
+    BIG_SMILE("BigSmile"),NB_SMART("NB-Smart"),STORM("Storm.kh.ua"),MOBUS("Mobus.com.ua"),EURO_TECHNIKA("Euro-technika.com.ua"),
+    DMS("DMS"),MOBAIL_STORE("Mobilestore.com.ua"),MOUNTAIN_SHOP("MountainShop"),BOOMSTORE("Boomstore.com.ua"),BEE_LIFE("Beelife"),
+    INSYSTEMS("Innsystems"),PRO100SMART("PRO100PHONE"),INTERNET("InternetTo"),LIKE_OS("LikeOS"),SAMSUNG_EXPIRIENCE("Samsung Experience Store"),
+    APPLE_TIMES("Appletimes.com.ua"),I_GOODS("igoods+"),ME_MOBILE("MeMobile"),HI_RES("Hi-Res Store Online"),
+    E_TECHNO("E-techno.com.ua"),SWEETBUY("Sweetbuy!"),ZA5("Za5aya.com"),THANOS("THANOS"),ULTRA("Ultra"),
+    GEEKON("Geekon"),FOTOMOST("Fotomost.com.u"),GVA("Gva.com.ua"),CHERRISES("Cherries"),UPGRADE("Upgrade"),
+
     NOT_FOUND("NOT_FOUND");
 
     private final String value;

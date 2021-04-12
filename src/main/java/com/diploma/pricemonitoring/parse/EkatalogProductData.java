@@ -1,10 +1,15 @@
 package com.diploma.pricemonitoring.parse;
 
-import com.diploma.pricemonitoring.modifications.NotebookConfiguration;
-import com.diploma.pricemonitoring.parse.dto.notebooks.NotebookDto;
-import com.diploma.pricemonitoring.parse.dto.notebooks.NotebookPriceDto;
 import com.diploma.pricemonitoring.model.Shop;
-import com.diploma.pricemonitoring.service.interf.NotebookService;
+import com.diploma.pricemonitoring.modifications.NotebookConfiguration;
+import com.diploma.pricemonitoring.modifications.SmartphoneConfiguration;
+import com.diploma.pricemonitoring.parse.dto.notebooks.NotebookDto;
+import com.diploma.pricemonitoring.parse.dto.notebooks.PriceDto;
+import com.diploma.pricemonitoring.parse.dto.smartphones.SmartphoneDto;
+import com.diploma.pricemonitoring.parse.dto.tabletop.TabletopDto;
+import com.diploma.pricemonitoring.service.notebook.interf.NotebookService;
+import com.diploma.pricemonitoring.service.smartphone.interf.SmartphoneService;
+import com.diploma.pricemonitoring.service.tabletop.interf.TabletopService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -13,9 +18,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
-import static com.diploma.pricemonitoring.modifications.NotebookConfiguration.*;
 import static com.diploma.pricemonitoring.model.Shop.getShop;
+import static com.diploma.pricemonitoring.modifications.NotebookConfiguration.*;
 import static com.diploma.pricemonitoring.utils.TextColor.*;
 
 @Service
@@ -25,11 +31,19 @@ public class EkatalogProductData implements ProductData {
     private final String NOTEBOOK_START_PAGE = "https://ek.ua/ua/list/298/";
     @Autowired
     private NotebookService notebookService;
+    @Autowired
+    private SmartphoneService smartphoneService;
+    @Autowired
+    private TabletopService tabletopService;
 
     @Override
     public Set getProducts(ProductType productType) throws IOException {
         if (ProductType.NOTEBOOK.equals(productType)) {
             return new Notebooks().getNotebooksData();
+        } else if (ProductType.SMART_PHONE.equals(productType)) {
+            return new Smartphone().getData();
+        } else if (ProductType.TABLETOP.equals(productType)) {
+            return new Tabletop().getData();
         }
         return Collections.EMPTY_SET;
     }
@@ -44,10 +58,18 @@ public class EkatalogProductData implements ProductData {
                 .get();
     }
 
+    private Integer getCountPage(Document document) {
+        try {
+            return Integer.valueOf(document.select("body > div.common-table-div.s-width > table > tbody > tr > td.main-part-content > div.list-pager-div > div > div > a:last-child").text());
+        } catch (Exception e) {
+            System.out.println(ANSI_RED + "PAGER_NOT_FOUND" + ANSI_RESET);
+            return 0;
+        }
+    }
 
     private class Notebooks {
-        private final String  configTableSelectorFormat = "#con-%s > div > table > tbody > tr > td.conf-td.conf-price-link-close > a";
-        private final String  descriptionSelectorFormat = "#item_bl_%s > div.conf-desc-ai-title";
+        private final String configTableSelectorFormat = "#con-%s > div > table > tbody > tr > td.conf-td.conf-price-link-close > a";
+        private final String descriptionSelectorFormat = "#item_bl_%s > div.conf-desc-ai-title";
 
         public Notebooks() {
         }
@@ -82,15 +104,15 @@ public class EkatalogProductData implements ProductData {
                     notebookConfiguration.setImageURL(imageURL);
                     Elements shopElements = notebookConfigurationDocument.select(selectorMarket);
 
-                    List<NotebookPriceDto> notebookPriceDtos = new LinkedList<>();
+                    List<PriceDto> priceDtos = new LinkedList<>();
                     for (int j = 0; j < shopElements.size(); j++) {
                         Shop shop = getShop(getSellerName(shopElements.get(j)));
                         Integer price = Integer.valueOf(getPrice(shopElements.get(j)));
                         System.out.println(ANSI_BLUE + "МАГАЗИН ---> " + j + " " + shop.toString() + " [Ціна: " + price + "]");
-                        NotebookPriceDto notebookPriceDto = new NotebookPriceDto(price, shop);
-                        notebookPriceDtos.add(notebookPriceDto);
+                        PriceDto priceDto = new PriceDto(price, shop);
+                        priceDtos.add(priceDto);
                     }
-                    notebookConfiguration.setPriceNotebooks(notebookPriceDtos);
+                    notebookConfiguration.setPriceNotebooks(priceDtos);
                     notebookService.save(notebookConfiguration);
                     notebooks.add(notebookConfiguration);
                 }
@@ -136,14 +158,145 @@ public class EkatalogProductData implements ProductData {
             return URLs;
         }
 
-        private Integer getCountPage(Document document) {
-            try {
-                return Integer.valueOf(document.select("body > div.common-table-div.s-width > table > tbody > tr > td.main-part-content > div.list-pager-div > div > div > a:last-child").text());
-            } catch (Exception e) {
-                System.out.println(ANSI_RED + "PAGER_NOT_FOUND" + ANSI_RESET);
-                return 0;
+
+    }
+
+    private class Tabletop {
+        private final String TABLETOP_START_PAGE = "https://ek.ua/ua/list/30/";
+        private final String LINK_SELECTOR = "#list_form1 > div > div > table > tbody > tr > td.model-short-info > table > tbody > tr > td > a";
+        private int countPages;
+
+        public Tabletop() throws IOException {
+            Document firstPage = getDocument(TABLETOP_START_PAGE);
+            this.countPages = getCountPage(firstPage);
+            System.out.println(countPages);
+        }
+
+        private Set getData() throws IOException {
+            List<String> linksOnSmartphonePage = new LinkedList<>(getLinksOnTabletopPage());
+            System.out.println("LINKEDLIST");
+            System.out.println(linksOnSmartphonePage.toString());
+            for (int i = 0; i < linksOnSmartphonePage.size(); i++) {
+                System.out.println(linksOnSmartphonePage.get(i));
+                Document document = getDocument(linksOnSmartphonePage.get(i));
+                TabletopDto tabletopDto = new TabletopDto(document);
+                tabletopDto.populate(document, tabletopDto);
+                String linkToMoreShops = BASE_SITE_URL + document.select(String.format("#item_sm_wb_%s > a", tabletopDto.getIdProduct())).attr("link");
+                System.out.println(tabletopDto.toString());
+
+                Document document1 = getDocument(linkToMoreShops);
+                Elements select = document.select("#item-wherebuy-table > tbody > tr");
+                List<PriceDto> marketList = new LinkedList<>();
+
+                for (int y = 0; y < select.size(); y++) {
+                    String marget;
+                    Integer priceProduct;
+                    String price = select.get(y).select(">td.where-buy-price").text().replaceAll("[^0-9]", "");
+                    String subMarket = select.get(y).select(">td.where-buy-description > div.hide-blacked > span.it-marketplace.text-nowrap.ib").text();
+                    String mainMarket = select.get(y).select(">td.where-buy-description > div.hide-blacked > a").text();
+                    if (!price.isEmpty()) {
+                        priceProduct = Integer.valueOf(price);
+                        if (!subMarket.isEmpty()) {
+                            marget = subMarket.split(" ")[2];
+                        } else {
+                            marget = mainMarket;
+                        }
+                        Shop shop = getShop(marget);
+                        PriceDto priceDto = new PriceDto(priceProduct, shop);
+                        marketList.add(priceDto);
+                    }
+                }
+                tabletopDto.setPriceDto(marketList);
+                if (tabletopDto.getPriceDto().size() > 0) {
+                    tabletopService.save(tabletopDto);
+                }
             }
+            return Collections.EMPTY_SET;
+        }
+
+        private Set<String> getLinksOnTabletopPage() throws IOException {
+            System.out.println("START");
+            Set<String> pageURLs = new HashSet<>();
+            for (int i = 0; i < this.countPages; i++) {
+                System.out.println("ITERATION # " + i);
+                Document currentPage = getDocument(TABLETOP_START_PAGE + i);
+                List<String> strings = currentPage.select(LINK_SELECTOR).eachAttr("href");
+                List<String> collect = strings.stream().filter(s -> s.startsWith("/ua")).map(s -> BASE_SITE_URL + s).collect(Collectors.toList());
+                System.out.println(collect.toString());
+                pageURLs.addAll(collect);
+            }
+            return pageURLs;
+        }
+
+
+    }
+
+    private class Smartphone {
+        private final String SMARTPHONE_START_PAGE = "https://ek.ua/ua/list/122/";
+        private final String LINK_SELECTOR = "#list_form1 > div > div > table > tbody > tr > td.model-short-info > table > tbody > tr > td > a";
+        private int countPages;
+
+        public Smartphone() throws IOException {
+            Document firstPage = getDocument(SMARTPHONE_START_PAGE);
+            this.countPages = getCountPage(firstPage);
+            System.out.println(countPages);
+        }
+
+        private Set getData() throws IOException {
+            List<String> linksOnSmartphonePage = new LinkedList<>(getLinksOnSmartphonePage());
+            System.out.println("LINKEDLIST");
+            System.out.println(linksOnSmartphonePage.toString());
+            for (int i = 0; i < linksOnSmartphonePage.size(); i++) {
+                Document document = getDocument(linksOnSmartphonePage.get(i));
+                SmartphoneDto smartphoneDto = new SmartphoneDto(document);
+                String idProduct = getIdProduct(document);
+                SmartphoneConfiguration.populateData(smartphoneDto, document, idProduct);
+                String allPricesURL = BASE_SITE_URL + SmartphoneConfiguration.getAllPricesURL2(idProduct, document);
+                Document shops = getDocument(allPricesURL);
+                //ЯКІ МАГАЗИНИ ПРОДАЮТЬ
+                Elements select = document.select("#item-wherebuy-table > tbody > tr");
+                List<PriceDto> marketList = new LinkedList<>();
+                for (int y = 0; y < select.size(); y++) {
+                    String marget;
+                    Integer priceProduct;
+                    String price = select.get(y).select(">td.where-buy-price").text().replaceAll("[^0-9]", "");
+                    String subMarket = select.get(y).select(">td.where-buy-description > div.hide-blacked > span.it-marketplace.text-nowrap.ib").text();
+                    String mainMarket = select.get(y).select(">td.where-buy-description > div.hide-blacked > a").text();
+                    if (!price.isEmpty()) {
+                        priceProduct = Integer.valueOf(price);
+                        if (!subMarket.isEmpty()) {
+                            marget = subMarket.split(" ")[2];
+                        } else {
+                            marget = mainMarket;
+                        }
+                        Shop shop = getShop(marget);
+                        PriceDto priceDto = new PriceDto(priceProduct, shop);
+                        marketList.add(priceDto);
+                    }
+                }
+                smartphoneDto.setPriceDto(marketList);
+                smartphoneDto.marketToString();
+                if (smartphoneDto.getPriceDto().size() > 0) {
+                    smartphoneService.save(smartphoneDto);
+                }
+            }
+            return Collections.EMPTY_SET;
+        }
+
+        private Set<String> getLinksOnSmartphonePage() throws IOException {
+            System.out.println("START");
+            Set<String> pageURLs = new HashSet<>();
+            for (int i = 0; i < this.countPages; i++) {
+                System.out.println("ITERATION # " + i);
+                Document currentPage = getDocument(SMARTPHONE_START_PAGE + i);
+                List<String> strings = currentPage.select(LINK_SELECTOR).eachAttr("href");
+                List<String> collect = strings.stream().filter(s -> s.startsWith("/ua")).map(s -> BASE_SITE_URL + s).collect(Collectors.toList());
+                System.out.println(collect.toString());
+                pageURLs.addAll(collect);
+            }
+            return pageURLs;
         }
 
     }
+
 }

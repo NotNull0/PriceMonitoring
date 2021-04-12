@@ -2,11 +2,11 @@ package com.diploma.pricemonitoring.parse.dto.notebooks;
 
 import com.diploma.pricemonitoring.model.Shop;
 
-public class NotebookPriceDto {
+public class PriceDto {
     private Integer price;
     private Shop shop;
 
-    public NotebookPriceDto(Integer price, Shop shop) {
+    public PriceDto(Integer price, Shop shop) {
         this.price = price;
         this.shop = shop;
     }
@@ -15,7 +15,7 @@ public class NotebookPriceDto {
         return price;
     }
 
-    public NotebookPriceDto setPrice(Integer price) {
+    public PriceDto setPrice(Integer price) {
         this.price = price;
         return this;
     }
@@ -24,7 +24,7 @@ public class NotebookPriceDto {
         return shop;
     }
 
-    public NotebookPriceDto setShop(Shop shop) {
+    public PriceDto setShop(Shop shop) {
         this.shop = shop;
         return this;
     }
