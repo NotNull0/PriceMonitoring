@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class TabletopBaseDto {
+    private Long id;
     private String name;
     private String os;
     private String displayDiagonal;
@@ -18,6 +19,7 @@ public class TabletopBaseDto {
     private String imageURL;
 
     public TabletopBaseDto(PlanshetModel planshetModel) {
+        this.id = planshetModel.getId();
         this.name = planshetModel.getName();
         this.os = planshetModel.getOs();
         this.displayDiagonal = planshetModel.getDisplayDiagonal();

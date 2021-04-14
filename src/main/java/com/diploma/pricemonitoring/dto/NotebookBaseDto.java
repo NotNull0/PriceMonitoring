@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class NotebookBaseDto {
+    private Long id;
     private String name;
     private String display;
     private String processor;
@@ -15,6 +16,7 @@ public class NotebookBaseDto {
     private String imageURL;
 
     public NotebookBaseDto(NotebookModel model) {
+        this.id = model.getId();
         this.name = model.getName();
         this.display = model.getDisplay();
         this.processor = model.getProcessor();

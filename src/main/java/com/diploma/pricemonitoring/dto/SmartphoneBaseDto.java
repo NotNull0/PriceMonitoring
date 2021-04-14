@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class SmartphoneBaseDto {
+    private Long id;
     private String name;
     private String display;
     private String memory;
@@ -18,6 +19,7 @@ public class SmartphoneBaseDto {
     private String imageURL;
 
     public SmartphoneBaseDto(SmartphoneModel model) {
+        this.id = model.getId();
         this.name = model.getName();
         this.display = model.getDisplay();
         this.memory = model.getMemory();
