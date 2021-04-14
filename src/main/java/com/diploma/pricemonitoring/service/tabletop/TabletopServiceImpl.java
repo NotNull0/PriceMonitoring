@@ -1,5 +1,6 @@
 package com.diploma.pricemonitoring.service.tabletop;
 
+import com.diploma.pricemonitoring.dto.TabletopBaseDto;
 import com.diploma.pricemonitoring.model.tabletop.PlanshetModel;
 import com.diploma.pricemonitoring.model.tabletop.PlanshetPriceModel;
 import com.diploma.pricemonitoring.parse.dto.notebooks.PriceDto;
@@ -8,6 +9,8 @@ import com.diploma.pricemonitoring.repository.tabletop.TabletopRepository;
 import com.diploma.pricemonitoring.service.tabletop.interf.TabletopPriceService;
 import com.diploma.pricemonitoring.service.tabletop.interf.TabletopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +27,16 @@ public class TabletopServiceImpl implements TabletopService {
     @Override
     public Optional<PlanshetModel> findByName(String name) {
         return tabletopRepository.findByName(name);
+    }
+
+    @Override
+    public Page<PlanshetModel> findAllPageable(Pageable pageable) {
+        return tabletopRepository.findAllPageable(pageable);
+    }
+
+    @Override
+    public Page<TabletopBaseDto> findAllPageableDto(Pageable pageable) {
+        return findAllPageable(pageable).map(TabletopBaseDto::new);
     }
 
     @Override

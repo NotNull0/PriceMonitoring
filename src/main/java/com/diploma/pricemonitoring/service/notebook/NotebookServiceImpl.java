@@ -1,5 +1,6 @@
 package com.diploma.pricemonitoring.service.notebook;
 
+import com.diploma.pricemonitoring.dto.NotebookBaseDto;
 import com.diploma.pricemonitoring.model.notebook.NotebookModel;
 import com.diploma.pricemonitoring.model.notebook.NotebookPriceModel;
 import com.diploma.pricemonitoring.parse.dto.notebooks.NotebookDto;
@@ -8,6 +9,8 @@ import com.diploma.pricemonitoring.repository.notebook.NotebookRepository;
 import com.diploma.pricemonitoring.service.notebook.interf.NotebookPriceService;
 import com.diploma.pricemonitoring.service.notebook.interf.NotebookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +27,16 @@ public class NotebookServiceImpl implements NotebookService {
     @Override
     public Optional<NotebookModel> findByName(String name) {
         return notebookRepository.findByName(name);
+    }
+
+    @Override
+    public Page<NotebookModel> findAllPageable(Pageable pageable) {
+        return notebookRepository.findAllPageable(pageable);
+    }
+
+    @Override
+    public Page<NotebookBaseDto> findAllPageableBaseModel(Pageable pageable) {
+        return findAllPageable(pageable).map(NotebookBaseDto::new);
     }
 
     @Override

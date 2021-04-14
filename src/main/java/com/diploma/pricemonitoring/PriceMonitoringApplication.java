@@ -21,9 +21,9 @@ public class PriceMonitoringApplication {
         SpringApplication.run(PriceMonitoringApplication.class, args);
     }
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void execute() throws IOException {
-        ekatalogProductData.getProducts(ProductType.TABLETOP);
-    }
+//    @EventListener(ApplicationReadyEvent.class)
+//    public void execute() throws IOException {
+//        ekatalogProductData.getProducts(ProductType.NOTEBOOK);
+//    }
 
 }
