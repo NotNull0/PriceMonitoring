@@ -1,5 +1,6 @@
 package com.diploma.pricemonitoring.service.tabletop;
 
+import com.diploma.pricemonitoring.dto.tabletop.TabletopShopDto;
 import com.diploma.pricemonitoring.model.tabletop.PlanshetPriceModel;
 import com.diploma.pricemonitoring.model.tabletop.PlanshetShopPriceModel;
 import com.diploma.pricemonitoring.repository.tabletop.TabletopPriceRepository;
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TabletopPriceServiceImpl implements TabletopPriceService {
@@ -27,6 +29,16 @@ public class TabletopPriceServiceImpl implements TabletopPriceService {
         } else {
             System.out.println("NOOK");
         }
+    }
+
+    @Override
+    public List<TabletopShopDto> getShopsByTabletopIdDto(Long id) {
+        return getShopsByTabletopId(id).stream().map(TabletopShopDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PlanshetPriceModel> getShopsByTabletopId(Long id) {
+        return tabletopPriceRepository.getShopsByTabletopId(id);
     }
 
     @Override

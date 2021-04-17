@@ -1,6 +1,6 @@
 package com.diploma.pricemonitoring.service.tabletop;
 
-import com.diploma.pricemonitoring.dto.TabletopBaseDto;
+import com.diploma.pricemonitoring.dto.tabletop.TabletopBaseDto;
 import com.diploma.pricemonitoring.model.tabletop.PlanshetModel;
 import com.diploma.pricemonitoring.model.tabletop.PlanshetPriceModel;
 import com.diploma.pricemonitoring.parse.dto.notebooks.PriceDto;

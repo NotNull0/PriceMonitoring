@@ -1,5 +1,6 @@
 package com.diploma.pricemonitoring.service.smartphone;
 
+import com.diploma.pricemonitoring.dto.smartphone.SmartphoneShopDto;
 import com.diploma.pricemonitoring.model.smartphone.SmartphonePriceModel;
 import com.diploma.pricemonitoring.model.smartphone.SmartphoneShopPriceModel;
 import com.diploma.pricemonitoring.repository.smartphone.SmartphonePriceRepository;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SmartphonePriceServiceImpl implements SmartphonePriceService {
@@ -20,6 +23,15 @@ public class SmartphonePriceServiceImpl implements SmartphonePriceService {
     @Autowired
     private SmartphoneShopPriceRepository smartphoneShopPriceRepository;
 
+    @Override
+    public List<SmartphoneShopDto> getShopsBySmartphoneIdDto(Long id) {
+        return getShopsBySmartphoneId(id).stream().map(smartphonePriceModel -> new SmartphoneShopDto(smartphonePriceModel)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SmartphonePriceModel> getShopsBySmartphoneId(Long id) {
+        return smartphonePriceRepository.getShopsBySmartphoneId(id);
+    }
 
     @Override
     public SmartphonePriceModel save(SmartphonePriceModel model) {

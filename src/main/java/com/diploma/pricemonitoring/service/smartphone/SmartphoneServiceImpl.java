@@ -1,6 +1,6 @@
 package com.diploma.pricemonitoring.service.smartphone;
 
-import com.diploma.pricemonitoring.dto.SmartphoneBaseDto;
+import com.diploma.pricemonitoring.dto.smartphone.SmartphoneBaseDto;
 import com.diploma.pricemonitoring.model.smartphone.SmartphoneModel;
 import com.diploma.pricemonitoring.model.smartphone.SmartphonePriceModel;
 import com.diploma.pricemonitoring.parse.dto.notebooks.PriceDto;

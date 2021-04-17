@@ -1,5 +1,6 @@
 package com.diploma.pricemonitoring.service.notebook;
 
+import com.diploma.pricemonitoring.dto.NotebookShopDto;
 import com.diploma.pricemonitoring.model.notebook.NotebookPriceModel;
 import com.diploma.pricemonitoring.model.notebook.NotebookShopPriceModel;
 import com.diploma.pricemonitoring.repository.notebook.NotebookPriceRepository;
@@ -8,7 +9,9 @@ import com.diploma.pricemonitoring.service.notebook.interf.NotebookPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class NotebookPriceServiceImpl implements NotebookPriceService {
@@ -18,6 +21,15 @@ public class NotebookPriceServiceImpl implements NotebookPriceService {
     @Autowired
     private NotebookShopPriceRepository notebookShopPriceRepository;
 
+    @Override
+    public List<NotebookShopDto> getShopsByNotebookIdDto(Long id) {
+        return getShopsByNotebookId(id).stream().map(NotebookShopDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<NotebookPriceModel> getShopsByNotebookId(Long id) {
+        return notebookPriceRepository.getShopsByNotebookId(id);
+    }
 
     @Override
     public NotebookPriceModel save(NotebookPriceModel model) {

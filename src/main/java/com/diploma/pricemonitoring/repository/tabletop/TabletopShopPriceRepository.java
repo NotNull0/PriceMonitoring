@@ -20,4 +20,5 @@ public interface TabletopShopPriceRepository extends JpaRepository<PlanshetShopP
                     "join planshet_model pm on pm.id = ppm.planshet_model_id " +
                     "where p.price =?1 and pm.id=?2 and ppm.shop=?3")
     List<PlanshetShopPriceModel> getCountWritesFromShop(Integer price, Long tabletopId, String shop);
+
 }

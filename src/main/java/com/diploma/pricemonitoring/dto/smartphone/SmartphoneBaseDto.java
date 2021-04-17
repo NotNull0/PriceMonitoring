@@ -1,4 +1,4 @@
-package com.diploma.pricemonitoring.dto;
+package com.diploma.pricemonitoring.dto.smartphone;
 
 import com.diploma.pricemonitoring.model.smartphone.SmartphoneModel;
 import lombok.Data;

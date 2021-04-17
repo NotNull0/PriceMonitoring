@@ -1,4 +1,4 @@
-package com.diploma.pricemonitoring.dto;
+package com.diploma.pricemonitoring.dto.tabletop;
 
 import com.diploma.pricemonitoring.model.tabletop.PlanshetModel;
 import lombok.Data;
@@ -17,6 +17,7 @@ public class TabletopBaseDto {
     private String material;
     private String weight;
     private String imageURL;
+    private String description;
 
     public TabletopBaseDto(PlanshetModel planshetModel) {
         this.id = planshetModel.getId();
@@ -31,5 +32,6 @@ public class TabletopBaseDto {
         this.material = planshetModel.getMaterial();
         this.weight = planshetModel.getWeight();
         this.imageURL = planshetModel.getImageURL();
+        this.description= planshetModel.getDescription();
     }
 }
