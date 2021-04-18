@@ -1,7 +1,11 @@
 package com.diploma.pricemonitoring.dto.smartphone;
 
 import com.diploma.pricemonitoring.model.smartphone.SmartphoneModel;
+import com.diploma.pricemonitoring.parse.ProductType;
+import com.diploma.pricemonitoring.utils.UtilsService;
 import lombok.Data;
+
+import static com.diploma.pricemonitoring.utils.UtilsService.generateDescription;
 
 
 @Data
@@ -28,7 +32,8 @@ public class SmartphoneBaseDto {
         this.video = model.getVideo();
         this.battery = model.getBattery();
         this.weight = model.getWeight();
-        this.description = model.getDescription();
+        this.description = generateDescription(ProductType.SMART_PHONE, model.getDescription());
         this.imageURL = model.getImageURL();
     }
+
 }

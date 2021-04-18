@@ -1,7 +1,10 @@
 package com.diploma.pricemonitoring.dto;
 
 import com.diploma.pricemonitoring.model.notebook.NotebookModel;
+import com.diploma.pricemonitoring.parse.ProductType;
 import lombok.Data;
+
+import static com.diploma.pricemonitoring.utils.UtilsService.generateDescription;
 
 @Data
 public class NotebookBaseDto {
@@ -23,7 +26,8 @@ public class NotebookBaseDto {
         this.OZU = model.getOZU();
         this.storage = model.getStorage();
         this.weight = model.getWeight();
-        this.description = model.getDescription();
         this.imageURL = model.getImageURL();
+        this.description = generateDescription(ProductType.NOTEBOOK, model.getDescription());
+
     }
 }

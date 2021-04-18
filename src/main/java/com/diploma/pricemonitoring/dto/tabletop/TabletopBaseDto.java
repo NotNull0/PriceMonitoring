@@ -1,7 +1,10 @@
 package com.diploma.pricemonitoring.dto.tabletop;
 
 import com.diploma.pricemonitoring.model.tabletop.PlanshetModel;
+import com.diploma.pricemonitoring.parse.ProductType;
 import lombok.Data;
+
+import static com.diploma.pricemonitoring.utils.UtilsService.generateDescription;
 
 @Data
 public class TabletopBaseDto {
@@ -32,6 +35,7 @@ public class TabletopBaseDto {
         this.material = planshetModel.getMaterial();
         this.weight = planshetModel.getWeight();
         this.imageURL = planshetModel.getImageURL();
-        this.description= planshetModel.getDescription();
+        this.description = generateDescription(ProductType.TABLETOP, planshetModel.getDescription());
+
     }
 }

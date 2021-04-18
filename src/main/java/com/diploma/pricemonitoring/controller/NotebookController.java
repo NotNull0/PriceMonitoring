@@ -29,8 +29,8 @@ public class NotebookController {
     }
 
     @GetMapping("/find-all-shop")
-    public ResponseEntity findAll(@RequestParam Long noteId) {
-        return ResponseEntity.ok(notebookPriceService.getShopsByNotebookIdDto(noteId));
+    public ResponseEntity findAll(@RequestParam Long ID) {
+        return ResponseEntity.ok(notebookPriceService.getShopsByNotebookIdDto(ID));
     }
 
 }
