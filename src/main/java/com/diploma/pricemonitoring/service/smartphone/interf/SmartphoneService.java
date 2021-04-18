@@ -1,6 +1,7 @@
 package com.diploma.pricemonitoring.service.smartphone.interf;
 
 import com.diploma.pricemonitoring.dto.smartphone.SmartphoneBaseDto;
+import com.diploma.pricemonitoring.dto.smartphone.SmartphoneBaseShopDto;
 import com.diploma.pricemonitoring.model.smartphone.SmartphoneModel;
 import com.diploma.pricemonitoring.parse.dto.smartphones.SmartphoneDto;
 import org.springframework.data.domain.Page;
@@ -14,5 +15,6 @@ public interface SmartphoneService {
     SmartphoneModel save(SmartphoneDto smartphoneDto);
     Page<SmartphoneModel> findAllPageable(Pageable pageable);
     Page<SmartphoneBaseDto> findAllPageableBaseModel(Pageable pageable);
+    SmartphoneBaseShopDto findOne(Long id);
 
 }

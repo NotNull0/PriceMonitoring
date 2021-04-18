@@ -1,6 +1,9 @@
 package com.diploma.pricemonitoring.service.tabletop;
 
+import com.diploma.pricemonitoring.dto.smartphone.SmartphoneBaseDto;
+import com.diploma.pricemonitoring.dto.smartphone.SmartphoneBaseShopDto;
 import com.diploma.pricemonitoring.dto.tabletop.TabletopBaseDto;
+import com.diploma.pricemonitoring.dto.tabletop.TabletopBaseShopDto;
 import com.diploma.pricemonitoring.model.tabletop.PlanshetModel;
 import com.diploma.pricemonitoring.model.tabletop.PlanshetPriceModel;
 import com.diploma.pricemonitoring.parse.dto.notebooks.PriceDto;
@@ -23,6 +26,11 @@ public class TabletopServiceImpl implements TabletopService {
     private TabletopRepository tabletopRepository;
     @Autowired
     private TabletopPriceService tabletopPriceService;
+
+    @Override
+    public TabletopBaseShopDto findOne(Long id) {
+        return tabletopRepository.findById(id).map(model -> new TabletopBaseShopDto(new TabletopBaseDto(model), tabletopPriceService.getShopsByTabletopIdDto(id))).get();
+    }
 
     @Override
     public Optional<PlanshetModel> findByName(String name) {

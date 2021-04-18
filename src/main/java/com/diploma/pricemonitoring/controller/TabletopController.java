@@ -25,9 +25,13 @@ public class TabletopController {
     }
 
     @GetMapping("/find-all-shop")
-    public ResponseEntity findAll(@RequestParam Long tabletopId) {
-        return ResponseEntity.ok(tabletopPriceService.getShopsByTabletopIdDto(tabletopId));
+    public ResponseEntity findAll(@RequestParam Long ID) {
+        return ResponseEntity.ok(tabletopPriceService.getShopsByTabletopIdDto(ID));
     }
 
+    @GetMapping("/find-one")
+    public ResponseEntity findOne(@RequestParam Long ID) {
+        return ResponseEntity.ok(tabletopService.findOne(ID));
+    }
 
 }

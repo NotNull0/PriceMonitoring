@@ -24,8 +24,13 @@ public class SmartphoneController {
     }
 
     @GetMapping("/find-all-shop")
-    public ResponseEntity findAll(@RequestParam Long tabletopId) {
-        return ResponseEntity.ok(smartphonePriceService.getShopsBySmartphoneIdDto(tabletopId));
+    public ResponseEntity findAll(@RequestParam Long ID) {
+        return ResponseEntity.ok(smartphonePriceService.getShopsBySmartphoneIdDto(ID));
+    }
+
+    @GetMapping("/find-one")
+    public ResponseEntity findOne(@RequestParam Long ID) {
+        return ResponseEntity.ok(smartphoneService.findOne(ID));
     }
 
 }

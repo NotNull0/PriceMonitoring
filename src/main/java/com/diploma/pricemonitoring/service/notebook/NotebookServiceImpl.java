@@ -1,6 +1,7 @@
 package com.diploma.pricemonitoring.service.notebook;
 
 import com.diploma.pricemonitoring.dto.NotebookBaseDto;
+import com.diploma.pricemonitoring.dto.NotebookBaseShopDto;
 import com.diploma.pricemonitoring.model.notebook.NotebookModel;
 import com.diploma.pricemonitoring.model.notebook.NotebookPriceModel;
 import com.diploma.pricemonitoring.parse.dto.notebooks.NotebookDto;
@@ -23,6 +24,11 @@ public class NotebookServiceImpl implements NotebookService {
     private NotebookRepository notebookRepository;
     @Autowired
     private NotebookPriceService notebookPriceService;
+
+    @Override
+    public NotebookBaseShopDto findOne(Long id) {
+        return notebookRepository.findById(id).map(model -> new NotebookBaseShopDto(new NotebookBaseDto(model), notebookPriceService.getShopsByNotebookIdDto(id))).get();
+    }
 
     @Override
     public Optional<NotebookModel> findByName(String name) {

@@ -1,6 +1,7 @@
 package com.diploma.pricemonitoring.service.smartphone;
 
 import com.diploma.pricemonitoring.dto.smartphone.SmartphoneBaseDto;
+import com.diploma.pricemonitoring.dto.smartphone.SmartphoneBaseShopDto;
 import com.diploma.pricemonitoring.model.smartphone.SmartphoneModel;
 import com.diploma.pricemonitoring.model.smartphone.SmartphonePriceModel;
 import com.diploma.pricemonitoring.parse.dto.notebooks.PriceDto;
@@ -23,6 +24,11 @@ public class SmartphoneServiceImpl implements SmartphoneService {
     private SmartphoneRepository smartphoneRepository;
     @Autowired
     private SmartphonePriceService smartphonePriceService;
+
+    @Override
+    public SmartphoneBaseShopDto findOne(Long id) {
+        return smartphoneRepository.findById(id).map(model -> new SmartphoneBaseShopDto(new SmartphoneBaseDto(model), smartphonePriceService.getShopsBySmartphoneIdDto(id))).get();
+    }
 
     @Override
     public Optional<SmartphoneModel> findByName(String name) {

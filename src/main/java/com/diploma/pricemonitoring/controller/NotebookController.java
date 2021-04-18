@@ -23,9 +23,14 @@ public class NotebookController {
         return ResponseEntity.ok(notebookService.findAllPageableBaseModel(pageable));
     }
 
+    @GetMapping("/find-one")
+    public ResponseEntity findOne(@RequestParam Long ID) {
+        return ResponseEntity.ok(notebookService.findOne(ID));
+    }
+
     @GetMapping("/find-all-shop")
-    public ResponseEntity findAll(@RequestParam Long tabletopId) {
-        return ResponseEntity.ok(notebookPriceService.getShopsByNotebookIdDto(tabletopId));
+    public ResponseEntity findAll(@RequestParam Long ID) {
+        return ResponseEntity.ok(notebookPriceService.getShopsByNotebookIdDto(ID));
     }
 
 }

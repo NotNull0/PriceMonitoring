@@ -1,6 +1,7 @@
 package com.diploma.pricemonitoring.service.notebook.interf;
 
 import com.diploma.pricemonitoring.dto.NotebookBaseDto;
+import com.diploma.pricemonitoring.dto.NotebookBaseShopDto;
 import com.diploma.pricemonitoring.model.notebook.NotebookModel;
 import com.diploma.pricemonitoring.parse.dto.notebooks.NotebookDto;
 import org.springframework.data.domain.Page;
@@ -16,4 +17,6 @@ public interface NotebookService {
     Page<NotebookModel> findAllPageable(Pageable pageable);
 
     Page<NotebookBaseDto> findAllPageableBaseModel(Pageable pageable);
+
+    NotebookBaseShopDto findOne(Long id);
 }
