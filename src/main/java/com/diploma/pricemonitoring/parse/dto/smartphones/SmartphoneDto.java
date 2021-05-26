@@ -19,6 +19,7 @@ public class SmartphoneDto {
     private String weight;
     private String description;
     private String imageURL;
+    private String sellerLink;
     private List<PriceDto> priceDto;
 
     public SmartphoneDto(Document document) {
@@ -26,6 +27,15 @@ public class SmartphoneDto {
         setName(SmartphoneConfiguration.getName(idProduct, document));
         setDescription(SmartphoneConfiguration.getDescription(document));
         setImageURL(SmartphoneConfiguration.getImageURl(idProduct, document));
+    }
+
+    public String getSellerLink() {
+        return sellerLink;
+    }
+
+    public SmartphoneDto setSellerLink(String sellerLink) {
+        this.sellerLink = sellerLink;
+        return this;
     }
 
     public SmartphoneDto(String name) {

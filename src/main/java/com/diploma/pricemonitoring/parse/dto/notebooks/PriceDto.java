@@ -5,6 +5,16 @@ import com.diploma.pricemonitoring.model.Shop;
 public class PriceDto {
     private Integer price;
     private Shop shop;
+    private String sellerLink;
+
+    public String getSellerLink() {
+        return sellerLink;
+    }
+
+    public PriceDto setSellerLink(String sellerLink) {
+        this.sellerLink = sellerLink;
+        return this;
+    }
 
     public PriceDto(Integer price, Shop shop) {
         this.price = price;

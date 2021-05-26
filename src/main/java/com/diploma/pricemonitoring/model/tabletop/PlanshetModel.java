@@ -1,5 +1,6 @@
 package com.diploma.pricemonitoring.model.tabletop;
 
+import com.diploma.pricemonitoring.model.User;
 import com.diploma.pricemonitoring.parse.dto.tabletop.TabletopDto;
 
 import javax.persistence.*;
@@ -36,6 +37,9 @@ public class PlanshetModel {
     private String imageURL;
     @OneToMany(mappedBy = "planshetModel")
     private List<PlanshetPriceModel> prices;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "planshetModels")
+    private List<User> users;
 
     public PlanshetModel(TabletopDto tabletopDto) {
         this.name = isEmptySet(tabletopDto.getName());

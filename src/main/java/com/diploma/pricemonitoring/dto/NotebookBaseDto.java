@@ -28,6 +28,5 @@ public class NotebookBaseDto {
         this.weight = model.getWeight();
         this.imageURL = model.getImageURL();
         this.description = generateDescription(ProductType.NOTEBOOK, model.getDescription());
-
     }
 }

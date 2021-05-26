@@ -21,9 +21,11 @@ public class SmartphoneConfiguration {
     public static String getImageURl(String id, Document document) {
         return document.select(String.format("#img_200_%s", id)).attr("src");
     }
+
     public static String getAllPricesURL(String id, Document document) {
         return document.select(String.format("#item_bl__%s > div.desc-wbuy > div.cont-block-title.or.cont-block-line-new > a", id)).attr("link");
     }
+
     public static String getAllPricesURL2(String id, Document document) {
         return document.select(String.format("#item_sm_wb_%s > a", id)).attr("link");
     }
@@ -70,18 +72,8 @@ public class SmartphoneConfiguration {
                 .timeout(25000)
                 .get();
         Elements select = document.select("#item-wherebuy-table > tbody > tr");
-        System.out.println(select.size());
-        for (int i = 0; i < select.size(); i++) {
-            String text = select.get(i).select(">td.where-buy-price").text().split("\\.")[0].split(" ")[0];
-            String string = select.get(i).select(">td.where-buy-description > div.hide-blacked > span.it-marketplace.text-nowrap.ib").text();
-            String string2 = select.get(i).select(">td.where-buy-description > div.hide-blacked > a").text();
-            System.out.println(text);
-            if (string.equals("")){
-                System.out.println(string2);
-            }else {
-                System.out.println(string.split(" ")[2]);
-            }
-        }
+        System.out.println(select.select(">td.where-buy-price > div.hide-blacked > a").attr("onmouseover").split(";")[0].split("\"")[1]);
+
         /////////////////////////////////////////////#item_bl_1133213 > div:nth-child(2) > div:nth-child(4) > div > div:nth-child(4)
     }
 }

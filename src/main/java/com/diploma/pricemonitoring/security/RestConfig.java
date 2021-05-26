@@ -1,4 +1,4 @@
-package com.diploma.pricemonitoring.utils;
+package com.diploma.pricemonitoring.security;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

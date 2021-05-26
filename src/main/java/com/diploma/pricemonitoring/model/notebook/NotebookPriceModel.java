@@ -16,6 +16,9 @@ public class NotebookPriceModel {
     @Column
     private Integer price;
 
+    @Column(length = 2048)
+    private String sellerLink;
+
     @Column
     @Enumerated(EnumType.STRING)
     private Shop shop;
@@ -32,6 +35,25 @@ public class NotebookPriceModel {
     public NotebookPriceModel(PriceDto notebookPriceDto) {
         this.setShop(notebookPriceDto.getShop());
         this.setPrice(notebookPriceDto.getPrice());
+        this.setSellerLink(notebookPriceDto.getSellerLink());
+    }
+
+    public String getSellerLink() {
+        return sellerLink;
+    }
+
+    public NotebookPriceModel setSellerLink(String sellerLink) {
+        this.sellerLink = sellerLink;
+        return this;
+    }
+
+    public List<NotebookShopPriceModel> getPrices() {
+        return prices;
+    }
+
+    public NotebookPriceModel setPrices(List<NotebookShopPriceModel> prices) {
+        this.prices = prices;
+        return this;
     }
 
     public Long getId() {

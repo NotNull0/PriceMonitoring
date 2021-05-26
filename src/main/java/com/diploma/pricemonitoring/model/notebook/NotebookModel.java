@@ -1,8 +1,10 @@
 package com.diploma.pricemonitoring.model.notebook;
 
+import com.diploma.pricemonitoring.model.User;
 import com.diploma.pricemonitoring.parse.dto.notebooks.NotebookDto;
 
 import javax.persistence.*;
+import javax.swing.table.TableModel;
 import java.util.List;
 
 @Entity
@@ -29,6 +31,9 @@ public class NotebookModel {
 
     @OneToMany(mappedBy = "notebookModel")
     private List<NotebookPriceModel> notebookPriceModels;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},mappedBy = "notebookModels")
+    private List<User> users;
 
     public NotebookModel(NotebookDto notebookDto) {
         this.setDisplay(isEmptySet(notebookDto.getDisplay()));

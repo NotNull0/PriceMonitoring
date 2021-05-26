@@ -6,11 +6,11 @@ import java.util.List;
 
 @Data
 public class SmartphoneBaseShopDto {
-    private SmartphoneBaseDto smartphoneBaseDto;
+    private SmartphoneBaseDto details;
     private List<SmartphoneShopDto> list;
 
-    public SmartphoneBaseShopDto(SmartphoneBaseDto smartphoneBaseDto, List<SmartphoneShopDto> list) {
-        this.smartphoneBaseDto = smartphoneBaseDto;
+    public SmartphoneBaseShopDto(SmartphoneBaseDto details, List<SmartphoneShopDto> list) {
+        this.details = details;
         this.list = list;
     }
 }

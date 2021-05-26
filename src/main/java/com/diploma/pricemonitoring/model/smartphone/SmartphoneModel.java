@@ -1,5 +1,6 @@
 package com.diploma.pricemonitoring.model.smartphone;
 
+import com.diploma.pricemonitoring.model.User;
 import com.diploma.pricemonitoring.parse.dto.smartphones.SmartphoneDto;
 
 import javax.persistence.*;
@@ -32,6 +33,9 @@ public class SmartphoneModel {
     private String imageURL;
     @OneToMany(mappedBy = "smartphoneModel")
     private List<SmartphonePriceModel> priceDto;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},mappedBy = "smartphoneModels")
+    private List<User> users;
 
     public SmartphoneModel(SmartphoneDto smartphoneDto) {
         this.setName(isEmptySet(smartphoneDto.getName()));

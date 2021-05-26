@@ -25,7 +25,7 @@ public class SmartphonePriceServiceImpl implements SmartphonePriceService {
 
     @Override
     public List<SmartphoneShopDto> getShopsBySmartphoneIdDto(Long id) {
-        return getShopsBySmartphoneId(id).stream().map(smartphonePriceModel -> new SmartphoneShopDto(smartphonePriceModel)).collect(Collectors.toList());
+        return getShopsBySmartphoneId(id).stream().map(SmartphoneShopDto::new).collect(Collectors.toList());
     }
 
     @Override

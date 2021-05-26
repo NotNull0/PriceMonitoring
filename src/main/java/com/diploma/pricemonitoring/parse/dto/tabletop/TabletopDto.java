@@ -23,6 +23,7 @@ public class TabletopDto {
     private String weight;
     private String imageURL;
     private String description;
+    private String sellerLink;
     private List<PriceDto> priceDto;
 
     public TabletopDto(Document document) {
@@ -30,6 +31,19 @@ public class TabletopDto {
         this.setImageURL(TabletopConfiguration.getImageURl(idProduct, document));
         this.setName(document.select(String.format("#item_bl_%s > div.cont-block-title.no-mobile > span", idProduct)).text());
         this.description = getDescription(document);
+    }
+
+    public String getdescription() {
+        return description;
+    }
+
+    public String getSellerLink() {
+        return sellerLink;
+    }
+
+    public TabletopDto setSellerLink(String sellerLink) {
+        this.sellerLink = sellerLink;
+        return this;
     }
 
     public String getDesc() {

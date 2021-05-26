@@ -9,10 +9,12 @@ public class TabletopShopDto {
     private final Long id;
     private final Integer price;
     private final Shop shop;
+    private String sellerLink;
 
     public TabletopShopDto(PlanshetPriceModel model) {
         this.id = model.getId();
         this.price = model.getPrice();
         this.shop = model.getShop();
+        this.sellerLink = model.getSellerLink();
     }
 }

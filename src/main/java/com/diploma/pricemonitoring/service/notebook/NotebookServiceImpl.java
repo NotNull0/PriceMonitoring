@@ -26,6 +26,11 @@ public class NotebookServiceImpl implements NotebookService {
     private NotebookPriceService notebookPriceService;
 
     @Override
+    public List<NotebookBaseShopDto> getNotebooksDetails() {
+        return notebookRepository.findAll().stream().map(model -> findOne(model.getId())).collect(Collectors.toList());
+    }
+
+    @Override
     public NotebookBaseShopDto findOne(Long id) {
         return notebookRepository.findById(id).map(model -> new NotebookBaseShopDto(new NotebookBaseDto(model), notebookPriceService.getShopsByNotebookIdDto(id))).get();
     }

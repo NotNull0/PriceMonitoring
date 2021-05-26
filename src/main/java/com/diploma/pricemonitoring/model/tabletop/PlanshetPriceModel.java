@@ -15,6 +15,9 @@ public class PlanshetPriceModel {
     @Column
     private Integer price;
 
+    @Column(length = 2048)
+    private String sellerLink;
+
     @Column
     @Enumerated(EnumType.STRING)
     private Shop shop;
@@ -28,6 +31,16 @@ public class PlanshetPriceModel {
     public PlanshetPriceModel(PriceDto notebookPriceDto) {
         this.setShop(notebookPriceDto.getShop());
         this.setPrice(notebookPriceDto.getPrice());
+        this.setSellerLink(notebookPriceDto.getSellerLink());
+    }
+
+    public String getSellerLink() {
+        return sellerLink;
+    }
+
+    public PlanshetPriceModel setSellerLink(String sellerLink) {
+        this.sellerLink = sellerLink;
+        return this;
     }
 
     public PlanshetPriceModel() {

@@ -6,11 +6,11 @@ import java.util.List;
 
 @Data
 public class TabletopBaseShopDto {
-    private TabletopBaseDto tabletopBaseDto;
+    private TabletopBaseDto details;
     private List<TabletopShopDto> list;
 
-    public TabletopBaseShopDto(TabletopBaseDto tabletopBaseDto, List<TabletopShopDto> list) {
-        this.tabletopBaseDto = tabletopBaseDto;
+    public TabletopBaseShopDto(TabletopBaseDto details, List<TabletopShopDto> list) {
+        this.details = details;
         this.list = list;
     }
 }
