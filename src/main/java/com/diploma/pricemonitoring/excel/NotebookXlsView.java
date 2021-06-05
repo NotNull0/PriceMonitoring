@@ -53,7 +53,7 @@ public class NotebookXlsView extends AbstractXlsxView {
                 row.createCell(0).setCellValue(list.get(j).getShop().toString());
                 row.createCell(1).setCellValue(list.get(j).getPrice());
             }
-
+            row = sheet.createRow(indexRow++); row = sheet.createRow(indexRow++); row = sheet.createRow(indexRow++);
         }
 
 

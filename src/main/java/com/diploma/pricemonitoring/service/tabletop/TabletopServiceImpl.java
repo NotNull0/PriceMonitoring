@@ -4,6 +4,7 @@ import com.diploma.pricemonitoring.dto.smartphone.SmartphoneBaseDto;
 import com.diploma.pricemonitoring.dto.smartphone.SmartphoneBaseShopDto;
 import com.diploma.pricemonitoring.dto.tabletop.TabletopBaseDto;
 import com.diploma.pricemonitoring.dto.tabletop.TabletopBaseShopDto;
+import com.diploma.pricemonitoring.model.smartphone.SmartphoneModel;
 import com.diploma.pricemonitoring.model.tabletop.PlanshetModel;
 import com.diploma.pricemonitoring.model.tabletop.PlanshetPriceModel;
 import com.diploma.pricemonitoring.parse.dto.notebooks.PriceDto;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.swing.table.TableModel;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,6 +28,15 @@ public class TabletopServiceImpl implements TabletopService {
     private TabletopRepository tabletopRepository;
     @Autowired
     private TabletopPriceService tabletopPriceService;
+
+    @Override
+    public List<TabletopBaseShopDto> getTabletopBaseShopDtos() {
+        return tabletopRepository.findAll().stream().map(this::getShopsBySmartphoneIdDto).collect(Collectors.toList());
+    }
+
+    private TabletopBaseShopDto getShopsBySmartphoneIdDto(PlanshetModel model) {
+        return new TabletopBaseShopDto(new TabletopBaseDto(model), tabletopPriceService.getShopsByTabletopIdDto(model.getId()));
+    }
 
     @Override
     public TabletopBaseShopDto findOne(Long id) {

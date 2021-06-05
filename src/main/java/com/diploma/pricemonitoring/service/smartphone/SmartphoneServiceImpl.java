@@ -1,7 +1,10 @@
 package com.diploma.pricemonitoring.service.smartphone;
 
+import com.diploma.pricemonitoring.dto.NotebookBaseDto;
+import com.diploma.pricemonitoring.dto.NotebookBaseShopDto;
 import com.diploma.pricemonitoring.dto.smartphone.SmartphoneBaseDto;
 import com.diploma.pricemonitoring.dto.smartphone.SmartphoneBaseShopDto;
+import com.diploma.pricemonitoring.model.notebook.NotebookModel;
 import com.diploma.pricemonitoring.model.smartphone.SmartphoneModel;
 import com.diploma.pricemonitoring.model.smartphone.SmartphonePriceModel;
 import com.diploma.pricemonitoring.parse.dto.notebooks.PriceDto;
@@ -24,6 +27,15 @@ public class SmartphoneServiceImpl implements SmartphoneService {
     private SmartphoneRepository smartphoneRepository;
     @Autowired
     private SmartphonePriceService smartphonePriceService;
+
+    @Override
+    public List<SmartphoneBaseShopDto> getSmartphoneBaseShopDto() {
+        return smartphoneRepository.findAll().stream().map(this::getShopsByNotebookIdDto).collect(Collectors.toList());
+    }
+
+    private SmartphoneBaseShopDto getShopsByNotebookIdDto(SmartphoneModel model) {
+        return new SmartphoneBaseShopDto(new SmartphoneBaseDto(model), smartphonePriceService.getShopsBySmartphoneIdDto(model.getId()));
+    }
 
     @Override
     public SmartphoneBaseShopDto findOne(Long id) {

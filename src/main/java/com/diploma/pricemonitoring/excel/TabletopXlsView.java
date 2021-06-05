@@ -1,9 +1,9 @@
 package com.diploma.pricemonitoring.excel;
 
-import com.diploma.pricemonitoring.dto.NotebookBaseShopDto;
-import com.diploma.pricemonitoring.dto.NotebookShopDto;
 import com.diploma.pricemonitoring.dto.smartphone.SmartphoneBaseShopDto;
 import com.diploma.pricemonitoring.dto.smartphone.SmartphoneShopDto;
+import com.diploma.pricemonitoring.dto.tabletop.TabletopBaseShopDto;
+import com.diploma.pricemonitoring.dto.tabletop.TabletopShopDto;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.web.servlet.view.document.AbstractXlsxView;
@@ -13,14 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
-public class SmartphoneXlsView extends AbstractXlsxView {
+public class TabletopXlsView extends AbstractXlsxView {
     @Override
     protected void buildExcelDocument(Map<String, Object> map, Workbook workbook,
                                       HttpServletRequest httpServletRequest,
                                       HttpServletResponse httpServletResponse) throws Exception {
         String  name = (String)map.get("name");
         httpServletResponse.setHeader("Content-Disposition", "attachment; filename=\"" + name + ".xls\"");
-        List<SmartphoneBaseShopDto> notebooks = (List<SmartphoneBaseShopDto>) map.get("smartphone_details");
+        List<TabletopBaseShopDto> tabletopBaseShopDtos = (List<TabletopBaseShopDto>) map.get("smartphone_details");
 
         Sheet sheet = workbook.createSheet("Smartphones");
         sheet.setDefaultColumnWidth(30);
@@ -29,25 +29,29 @@ public class SmartphoneXlsView extends AbstractXlsxView {
         int indexRow = 1;
 
 
-        for (int i = 0; i < notebooks.size(); i++) {
-            List<String> notebookAttributes = List.of("Назва", "Дисплей", "Память", "Процесор", "Камера", "Відео", "Батарея", "Вага", "Опис");
+        for (int i = 0; i < tabletopBaseShopDtos.size(); i++) {
+            List<String> notebookAttributes = List.of(
+                    "Назва", "Операційна система", "Діагональ дисплею",
+                    "Роздільна здатність дисплею", "Процесор", "Сховище", "Фронтальна камера", "Батарея", "Матеріал", "Вага", "Опис");
             createHeaderRow(notebookAttributes, row, workbook);
             row = sheet.createRow(indexRow++);
-            SmartphoneBaseShopDto dto = notebooks.get(i);
+            TabletopBaseShopDto dto = tabletopBaseShopDtos.get(i);
 
             row.createCell(0).setCellValue(dto.getDetails().getName());
-            row.createCell(1).setCellValue(dto.getDetails().getDisplay());
-            row.createCell(2).setCellValue(dto.getDetails().getMemory());
-            row.createCell(3).setCellValue(dto.getDetails().getProcessor());
-            row.createCell(4).setCellValue(dto.getDetails().getCamera());
-            row.createCell(5).setCellValue(dto.getDetails().getVideo());
-            row.createCell(6).setCellValue(dto.getDetails().getBattery());
-            row.createCell(7).setCellValue(dto.getDetails().getWeight());
-            row.createCell(8).setCellValue(dto.getDetails().getDescription());
+            row.createCell(1).setCellValue(dto.getDetails().getOs());
+            row.createCell(2).setCellValue(dto.getDetails().getDisplayDiagonal());
+            row.createCell(3).setCellValue(dto.getDetails().getDisplayResolution());
+            row.createCell(4).setCellValue(dto.getDetails().getProcessor());
+            row.createCell(5).setCellValue(dto.getDetails().getStorage());
+            row.createCell(6).setCellValue(dto.getDetails().getFrontCamera());
+            row.createCell(7).setCellValue(dto.getDetails().getBattery());
+            row.createCell(8).setCellValue(dto.getDetails().getMaterial());
+            row.createCell(9).setCellValue(dto.getDetails().getWeight());
+            row.createCell(10).setCellValue(dto.getDetails().getDescription());
             row = sheet.createRow(indexRow++);
 
-            List<SmartphoneShopDto> list = dto.getList();
-            logger.info(notebooks.get(i).getDetails().toString());
+            List<TabletopShopDto> list = dto.getList();
+            logger.info(tabletopBaseShopDtos.get(i).getDetails().toString());
 
             List<String> shopDetails = List.of("Магазин", "Ціна");
             createHeaderRow(shopDetails, row, workbook);
