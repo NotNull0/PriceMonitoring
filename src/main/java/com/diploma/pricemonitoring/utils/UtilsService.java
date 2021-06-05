@@ -43,7 +43,7 @@ public class UtilsService {
                 double v = Math.random() * tabletopDescriptions.size();
                 return tabletopDescriptions.get((int) v);
 
-            } else if (ProductType.SMART_PHONE.equals(productType)) {
+            } else if (ProductType.SMARTPHONE.equals(productType)) {
                 double v = Math.random() * smartphoneDescriptions.size();
                 return smartphoneDescriptions.get((int) v);
 

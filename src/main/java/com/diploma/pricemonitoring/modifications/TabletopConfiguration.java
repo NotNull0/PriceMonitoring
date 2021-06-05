@@ -82,7 +82,6 @@ public class TabletopConfiguration {
                     if (text.startsWith("Роздільна здатність")){
                         tabletopDto.setDisplayResolution(text.split(":")[1]);
                     }else if (text.startsWith("Процесор")){
-                        System.out.println("ЗАЙШОВ");
                         tabletopDto.setProcessor(text.split(":")[1]);
                     }else if (text.startsWith("Вбудована пам'ять")){
                         tabletopDto.setStorage(text.split(":")[1]);

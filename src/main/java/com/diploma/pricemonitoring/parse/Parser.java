@@ -42,7 +42,7 @@ public class Parser implements ProductData {
     public Set getProducts(ProductType productType) throws IOException {
         if (ProductType.NOTEBOOK.equals(productType)) {
             return new Notebooks().getNotebooksData();
-        } else if (ProductType.SMART_PHONE.equals(productType)) {
+        } else if (ProductType.SMARTPHONE.equals(productType)) {
             return new Smartphone().getData();
         } else if (ProductType.TABLETOP.equals(productType)) {
             return new Tabletop().getData();
@@ -113,7 +113,9 @@ public class Parser implements ProductData {
                         String sellerLink = getSellerLinkForNotebook(shopElements.get(j));
                         log.info(ANSI_BLUE + "МАГАЗИН ---> " + j + " " + shop.toString() + " [Ціна: " + price + "]");
                         PriceDto priceDto = new PriceDto(price, shop);
-                        priceDto.setSellerLink(sellerLink);
+                        String href = getDocument(sellerLink).select("a#clickme").attr("href");
+                        log.info(href);
+                        priceDto.setSellerLink(href);
                         priceDtos.add(priceDto);
                     }
                     notebookConfiguration.setPriceNotebooks(priceDtos);
@@ -192,7 +194,6 @@ public class Parser implements ProductData {
                 List<PriceDto> marketList = new LinkedList<>();
 
                 for (int y = 0; y < select.size(); y++) {
-                    log.info("NUMBER" + y);
                     String marget;
                     Integer priceProduct;
                     String price = select.get(y).select(">td.where-buy-price").text().replaceAll("[^0-9]", "");
@@ -212,7 +213,9 @@ public class Parser implements ProductData {
                         }
                         Shop shop = getShop(marget);
                         PriceDto priceDto = new PriceDto(priceProduct, shop);
-                        priceDto.setSellerLink(sellerLink);
+                        String href = getDocument(sellerLink).select("a#clickme").attr("href");
+                        log.info(href);
+                        priceDto.setSellerLink(href);
                         marketList.add(priceDto);
                     }
                 }
@@ -265,7 +268,6 @@ public class Parser implements ProductData {
                 Elements select = document.select("#item-wherebuy-table > tbody > tr");
                 List<PriceDto> marketList = new LinkedList<>();
                 for (int y = 0; y < select.size(); y++) {
-                    log.info("NUMBER" + y);
                     String marget;
                     Integer priceProduct;
                     String price = select.get(y).select(">td.where-buy-price").text().replaceAll("[^0-9]", "");
@@ -285,7 +287,9 @@ public class Parser implements ProductData {
                         }
                         Shop shop = getShop(marget);
                         PriceDto priceDto = new PriceDto(priceProduct, shop);
-                        priceDto.setSellerLink(sellerLink);
+                        String href = getDocument(sellerLink).select("a#clickme").attr("href");
+                        log.info(href);
+                        priceDto.setSellerLink(href);
                         marketList.add(priceDto);
                     }
                 }

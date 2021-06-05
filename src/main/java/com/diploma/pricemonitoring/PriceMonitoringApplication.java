@@ -20,10 +20,10 @@ public class PriceMonitoringApplication {
     public static void main(String[] args) throws IOException {
         SpringApplication.run(PriceMonitoringApplication.class, args);
     }
-
-    @EventListener(ApplicationReadyEvent.class)
-    public void execute() throws IOException {
-        parser.getProducts(ProductType.NOTEBOOK);
-    }
+//
+//    @EventListener(ApplicationReadyEvent.class)
+//    public void execute() throws IOException {
+//        parser.getProducts(ProductType.SMARTPHONE);
+//    }
 
 }

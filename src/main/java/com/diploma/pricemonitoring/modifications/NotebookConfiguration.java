@@ -80,13 +80,14 @@ public class NotebookConfiguration {
             Shop shop = getShop(getSellerName(shopElements.get(j)));
             Integer price = Integer.valueOf(getPrice(shopElements.get(j)));
             String sellerLink = getSellerLinkForNotebook(shopElements.get(j));
+            String href = getDocument(sellerLink).select("a#clickme").attr("href");
             System.out.println(shop);
             System.out.println(price);
-            System.out.println(sellerLink);
+            System.out.println(href);
         }
     }
 
-    private static Document getDocument(String url) throws IOException {
+    public static Document getDocument(String url) throws IOException {
         return Jsoup.connect(url)
                 .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36")
                 .referrer("http://www.google.com")
