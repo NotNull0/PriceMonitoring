@@ -2,6 +2,7 @@ package com.diploma.pricemonitoring.controller;
 
 
 import com.diploma.pricemonitoring.excel.SmartphoneXlsView;
+import com.diploma.pricemonitoring.excel.TabletopXlsView;
 import com.diploma.pricemonitoring.service.tabletop.interf.TabletopPriceService;
 import com.diploma.pricemonitoring.service.tabletop.interf.TabletopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class TabletopController {
 
     @GetMapping("/create-excel")
     public ModelAndView createExcel() {
-        ModelAndView modelAndView = new ModelAndView(new SmartphoneXlsView());
+        ModelAndView modelAndView = new ModelAndView(new TabletopXlsView());
         modelAndView.getModel().clear();
         modelAndView.addObject("tabletop_details", tabletopService.getTabletopBaseShopDtos());
         modelAndView.addObject("name", "Tabletop statistic");

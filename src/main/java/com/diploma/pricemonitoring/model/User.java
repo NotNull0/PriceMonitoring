@@ -119,7 +119,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return String.valueOf(id);
+        return email;
     }
 
     @Override

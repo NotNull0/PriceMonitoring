@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -42,4 +43,9 @@ public class UserServiceImpl implements UserService {
         return userRegistrationDto;
     }
 
+    @Override
+    public UserRegistrationDto findOneByPrincipal(Principal principal) {
+        String name = principal.getName();
+        return map(userRepository.findByEmail(name));
+    }
 }

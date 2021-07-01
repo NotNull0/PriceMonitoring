@@ -9,6 +9,8 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 
 import java.io.IOException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 
 @SpringBootApplication
@@ -18,6 +20,7 @@ public class PriceMonitoringApplication {
     private Parser parser;
 
     public static void main(String[] args) throws IOException {
+    final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         SpringApplication.run(PriceMonitoringApplication.class, args);
     }
 //

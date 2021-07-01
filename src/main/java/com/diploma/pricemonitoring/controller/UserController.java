@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -20,6 +22,11 @@ public class UserController {
     @PostMapping("/registration")
     public ResponseEntity<Long> registration(@RequestBody UserRegistrationDto user) {
         return ResponseEntity.ok(userService.registration(user).getId());
+    }
+
+    @GetMapping(value = "/find-by-principal")
+    private ResponseEntity<UserRegistrationDto> findByPrincipal(Principal principal) {
+        return ResponseEntity.ok(userService.findOneByPrincipal(principal));
     }
 
 }

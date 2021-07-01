@@ -20,9 +20,9 @@ public class TabletopXlsView extends AbstractXlsxView {
                                       HttpServletResponse httpServletResponse) throws Exception {
         String  name = (String)map.get("name");
         httpServletResponse.setHeader("Content-Disposition", "attachment; filename=\"" + name + ".xls\"");
-        List<TabletopBaseShopDto> tabletopBaseShopDtos = (List<TabletopBaseShopDto>) map.get("smartphone_details");
+        List<TabletopBaseShopDto> tabletopBaseShopDtos = (List<TabletopBaseShopDto>) map.get("tabletop_details");
 
-        Sheet sheet = workbook.createSheet("Smartphones");
+        Sheet sheet = workbook.createSheet("Tabletops");
         sheet.setDefaultColumnWidth(30);
 
         Row row = sheet.createRow(0);

@@ -20,7 +20,7 @@ public class ApplicationManagerService {
         } else if (productType.equals(ProductType.SMARTPHONE)) {
             parser.getProducts(ProductType.SMARTPHONE);
         } else if (productType.equals(ProductType.TABLETOP))
-            parser.getProducts(ProductType.SMARTPHONE);
+            parser.getProducts(ProductType.TABLETOP);
     }
 }
 
